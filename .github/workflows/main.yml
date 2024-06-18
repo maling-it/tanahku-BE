@@ -1,0 +1,22 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: appleboy/ssh-action@master
+      with:
+        host: ${{secrets.HOST}}
+        port: ${{secrets.PORT}}
+        username: ${{secrets.USER}} 
+        password: ${{secrets.PASS}}
+        script: | 
+          ./../home/tanahku/build
+          echo "Deployed to server"
